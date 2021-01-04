@@ -1,12 +1,13 @@
 import React, {Component} from 'react'
 import BookGrid from "./bookShelf";
+import {Link} from 'react-router-dom'
 
 export default class Search extends Component {
     render() {
         return (
             <div className="search-books">
                 <div className="search-books-bar">
-                    <button className="close-search">Close</button>
+                    <Link to="./" ><button className="close-search">Close</button></Link>
                     <div className="search-books-input-wrapper">
                         <input type="text" placeholder="Search by title or author"/>
 

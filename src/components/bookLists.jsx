@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import BookShelf from './bookShelf'
+import {Link} from "react-router-dom";
 
 export default class BookLists extends Component {
     render() {
@@ -14,7 +15,7 @@ export default class BookLists extends Component {
                     </div>
                 </div>
                 <div className="open-search">
-                    <button>Add a book</button>
+                    <Link to="/search" >  <button>Add a book</button> </Link>
                 </div>
             </div>
         )
