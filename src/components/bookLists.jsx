@@ -1,21 +1,28 @@
 import React, {Component} from 'react'
-import BookShelf from './bookShelf'
+import {BookShelf} from './bookShelf'
 import {Link} from "react-router-dom";
-import {getAll} from '../BooksAPI'
+import {getAll, update} from '../BooksAPI'
 
-const SHELFS = [{title:'Currently Reading', code:'currentlyReading'},{title:'Want to Read', code:'wantToRead'}, {title:'Read', code:'read'}];
+const SHELFS = [{title: 'Currently Reading', code: 'currentlyReading'}, {
+    title: 'Want to Read',
+    code: 'wantToRead'
+}, {title: 'Read', code: 'read'}];
 
 export default class BookLists extends Component {
 
     state = {
-        booksList: {currentlyReading:[],wantToRead:[], read:[]}
-    }
+        booksList: {currentlyReading: [], wantToRead: [], read: []}
+    };
 
     componentDidMount() {
-        getAll().then((response)=> {
-          let currentlyReading = response.filter((book)=> book.shelf === 'currentlyReading')
-          let wantToRead = response.filter((book)=> book.shelf === 'wantToRead')
-          let read = response.filter((book)=> book.shelf === 'read')
+        this.getAllBooks()
+    };
+
+    getAllBooks = () => {
+        getAll().then((response) => {
+            let currentlyReading = response.filter((book) => book.shelf === 'currentlyReading');
+            let wantToRead = response.filter((book) => book.shelf === 'wantToRead');
+            let read = response.filter((book) => book.shelf === 'read');
             this.setState({
                 booksList: {
                     currentlyReading: currentlyReading,
@@ -24,7 +31,11 @@ export default class BookLists extends Component {
                 }
             })
         })
-    }
+    };
+
+    updateBook = (book, shelf) => {
+        update(book, shelf).then(() => this.getAllBooks())
+    };
 
     render() {
         return (
@@ -34,11 +45,18 @@ export default class BookLists extends Component {
                 </div>
                 <div className="list-books-content">
                     <div>
-                        {SHELFS.map((shelf)=> <BookShelf key={shelf.title} shelfTitle = {shelf.title} books={this.state.booksList[shelf.code]}/>)}
+                        {SHELFS.map((shelf) =>
+                            <BookShelf
+                                key={shelf.title}
+                                shelfTitle={shelf.title}
+                                books={this.state.booksList[shelf.code]}
+                                updateBook={this.updateBook}/>)}
                     </div>
                 </div>
                 <div className="open-search">
-                    <Link to="/search" >  <button>Add a book</button> </Link>
+                    <Link to="/search">
+                        <button>Add a book</button>
+                    </Link>
                 </div>
             </div>
         )

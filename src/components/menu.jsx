@@ -1,15 +1,12 @@
-import React, {Component} from 'react'
+import React from 'react'
 
-export default class Menu extends Component {
-    render() {
-        return (
-            <select>
-                <option value="move" disabled>Move to...</option>
-                <option value="currentlyReading">Currently Reading</option>
-                <option value="wantToRead">Want to Read</option>
-                <option value="read">Read</option>
-                <option value="none">None</option>
-            </select>
-        )
-    }
-}
+export const Menu = (props) => (
+    <select value={props.selectedValue ? props.selectedValue : "none"}
+            onChange={(event) => props.onChange(event.target.value)}>
+        <option value="move" disabled>Move to...</option>
+        <option value="currentlyReading">Currently Reading</option>
+        <option value="wantToRead">Want to Read</option>
+        <option value="read">Read</option>
+        <option value="none">None</option>
+    </select>
+);

@@ -3,19 +3,20 @@ import React, {Component} from 'react'
 import './App.css'
 import BookLists from './components/bookLists'
 import Search from "./components/search";
-import  {Route} from 'react-router-dom'
+import {Route} from 'react-router-dom'
+
 class BooksApp extends Component {
 
   render() {
     return (
         <div className="app">
           <Route path='/' exact render={() => {
-            return <BookLists />
-          }} />
+            return <BookLists/>
+          }}/>
 
           <Route path='/search' exact render={() => {
-            return <Search />
-          }} />
+            return <Search/>
+          }}/>
 
         </div>
     )
